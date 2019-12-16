@@ -10,19 +10,28 @@ public final class EdgeListFileParser {
 
     }
 
-    public static Edge[] parseFile(File f) {
-        String[] content = readFile(f);
-        return new Edge[0];
+    public static ArrayList<Edge> parseFile(File f) {
+        ArrayList<String> edgeStrings = readFile(f);
+        edgeStrings.remove(0);
+        ArrayList<Edge> edges = new ArrayList<>();
+        for (String s : edgeStrings){
+            String[] vertices = s.split(" ");
+            if(vertices.length != 2){
+                throw new IllegalArgumentException("Edge does not have 2 Vertices");
+            }
+            edges.add(new Edge(Integer.parseInt(vertices[0]), Integer.parseInt(vertices[1])));
+        }
+        return edges;
     }
 
-    private static String[] readFile(File f){
+    public static ArrayList<String> readFile(File f){
         try(FileReader fr = new FileReader(f); BufferedReader br = new BufferedReader(fr)){
             String line;
             ArrayList<String> content = new ArrayList<>();
             while((line=br.readLine()) != null){
                 content.add(line);
             }
-            return content.toArray(new String[content.size()]);
+            return content;
         } catch (IOException e) {
             e.printStackTrace();
         }
