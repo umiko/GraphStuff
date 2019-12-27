@@ -1,12 +1,12 @@
 package com.graphstuff.model;
 
+import com.graphstuff.algorithm.ISearchable;
 import com.graphstuff.parser.EdgeListFileParser;
-import org.jetbrains.annotations.Contract;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class EdgeList {
+public class EdgeList implements ISearchable {
     private ArrayList<Edge> edges;
 
     private EdgeList(){}
@@ -67,5 +67,10 @@ public class EdgeList {
 
     public AdjacencyList toAdjacencyList(){
         return new AdjacencyList(this);
+    }
+
+    @Override
+    public EdgeList getSearchableStructure() {
+        return this;
     }
 }

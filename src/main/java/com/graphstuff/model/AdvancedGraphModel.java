@@ -1,7 +1,11 @@
 package com.graphstuff.model;
 
-public class AdvancedGraphModel {
+import com.graphstuff.algorithm.ISearchable;
+
+public class AdvancedGraphModel implements ISearchable {
     EdgeList el;
+
+    public void addEdge(Edge e){ el.addEdge(e);}
 
     public IncidenceMatrix toIncidenceMatrix(){
         return new IncidenceMatrix(el);
@@ -13,5 +17,10 @@ public class AdvancedGraphModel {
 
     public AdjacencyList toAdjacencyList(){
         return new AdjacencyList(el);
+    }
+
+    @Override
+    public EdgeList getSearchableStructure() {
+        return el;
     }
 }

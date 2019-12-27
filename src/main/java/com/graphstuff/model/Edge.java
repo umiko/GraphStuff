@@ -28,6 +28,8 @@ public class Edge {
         if(obj.getClass()!= Edge.class)
             return super.equals(obj);
         Edge e = (Edge)obj;
+        if(!directed)
+            return(this.v1 == e.getV1() && this.v2 == e.getV2() || this.v2 == e.getV1() && this.v1 == e.getV2());
         return(this.v1 == e.getV1() && this.v2 == e.getV2());
     }
 
@@ -39,5 +41,12 @@ public class Edge {
         if(contains(v))
             return getV1()==v ? getV2() : getV1();
         throw new IllegalArgumentException("This edge does not contain "+v+".");
+    }
+
+    @Override
+    public String toString() {
+        if(!directed)
+            return v1 + " -- "+v2;
+        return v1 + " -> " + v2;
     }
 }
