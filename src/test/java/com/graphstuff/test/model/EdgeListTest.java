@@ -1,11 +1,13 @@
 package com.graphstuff.test.model;
 
-import com.graphstuff.model.Edge;
-import com.graphstuff.model.EdgeList;
+import com.graphstuff.model.*;
 import com.graphstuff.parser.EdgeListFileParser;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Spliterator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,13 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EdgeListTest {
 
     EdgeList el;
+    File f;
 
     @BeforeEach
     @Test
     @DisplayName("EdgeList Constructor")
     void EdgeListConstructor(){
-        el = new EdgeList(EdgeListFileParser.parseFile(new File("src/test/resources/k1_1.txt")));
-        el = new EdgeList(new File("src/test/resources/k1_1.txt"));
+        f = new File("src/test/resources/k3_3.txt");
+        el = new EdgeList(EdgeListFileParser.parseFile(f));
+        el = new EdgeList(f);
     }
 
     @Test
@@ -32,24 +36,63 @@ class EdgeListTest {
     @Test
     @DisplayName("Test Size")
     void size(){
-        assertEquals(1,el.size());
+        assertEquals(9,el.size());
         el.addEdge(new Edge(2,3));
-        assertEquals(2, el.size());
+        assertEquals(10, el.size());
     }
 
     @Test
     @DisplayName("Test getting edge by ID")
     void getEdge(){
-        assertEquals(new Edge(1,2), el.getEdge(1));
-        el.addEdge(new Edge(2,3));
-        assertEquals(new Edge(2,3), el.getEdge(2));
+        assertEquals(new Edge(1,4), el.getEdge(1));
     }
 
     @Test
     @DisplayName("Test getVMax")
     void getVMax(){
-        assertEquals(2, el.getVMax());
-        el = new EdgeList(new File("src/test/resources/k3_3.txt"));
         assertEquals(6, el.getVMax());
+    }
+
+    @Test
+    void toIncidenceMatrix() {
+        assertEquals(el.toIncidenceMatrix(), new IncidenceMatrix(f));
+    }
+
+    @Test
+    void toAdjacencyMatrix() {
+        assertEquals(el.toAdjacencyMatrix(), new AdjacencyMatrix(f));
+    }
+
+    @Test
+    void toAdjacencyList() {
+        assertEquals(el.toAdjacencyList(), new AdjacencyList(f));
+    }
+
+    @Test
+    void getSearchableStructure() {
+        assertEquals(el.getSearchableStructure(), el);
+    }
+
+    @Test
+    void foreach(){
+        ArrayList<Edge> edges = new ArrayList<>();
+        el.forEach(edge -> edges.add(edge));
+        assertEquals(el.getEdgeList(), edges);
+    }
+
+    @Test
+    void iter(){
+        ArrayList<Edge> edges = new ArrayList<>();
+        Iterator<Edge> iter = el.iterator();
+        iter.forEachRemaining(edge -> edges.add(edge));
+        assertEquals(el.getEdgeList(), edges);
+    }
+
+    @Test
+    void spliter(){
+        ArrayList<Edge> edges = new ArrayList<>();
+        Spliterator<Edge> spliter = el.spliterator();
+        spliter.forEachRemaining(edge -> edges.add(edge));
+        assertEquals(el.getEdgeList(), edges);
     }
 }

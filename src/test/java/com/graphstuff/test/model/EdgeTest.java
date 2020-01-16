@@ -43,4 +43,10 @@ class EdgeTest {
         assertEquals(e.getV2(), e.getOther(e.getV1()));
         assertThrows(IllegalArgumentException.class, ()->{e.getOther(123);});
     }
+
+    @Test
+    @DisplayName("Test toString")
+    void toStringTest(){
+        assertEquals(e.toString(), e.getV1()+" -- "+e.getV2());
+    }
 }

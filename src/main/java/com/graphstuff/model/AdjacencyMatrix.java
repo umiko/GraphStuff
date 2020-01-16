@@ -2,8 +2,7 @@ package com.graphstuff.model;
 
 import java.io.File;
 
-public class AdjacencyMatrix {
-    private EdgeList el;
+public class AdjacencyMatrix extends AdvancedGraphModel {
 
     private AdjacencyMatrix(){}
 

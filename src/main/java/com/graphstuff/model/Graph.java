@@ -23,8 +23,9 @@ public class Graph implements ISearchable {
         this(new EdgeList(f));
     }
 
-    public Graph(EdgeList el, boolean isStrict){
-        this.el = el;
+    public Graph(ISearchable graph, boolean isStrict){
+
+        this.el = graph.getSearchableStructure();
         this.isStrict = isStrict;
     }
 

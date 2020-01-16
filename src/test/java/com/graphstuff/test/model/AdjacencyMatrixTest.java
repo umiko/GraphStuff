@@ -1,6 +1,7 @@
 package com.graphstuff.test.model;
 
 import com.graphstuff.model.AdjacencyMatrix;
+import com.graphstuff.model.Edge;
 import com.graphstuff.model.EdgeList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +28,8 @@ public class AdjacencyMatrixTest {
     void lookup(){
         assertTrue(am.lookup(1,5));
         assertFalse(am.lookup(3,2));
+        am.addEdge(new Edge(1,1));
+        assertTrue(am.lookup(1,1));
     }
 
     @Test
