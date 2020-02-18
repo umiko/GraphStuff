@@ -1,17 +1,16 @@
 package com.graphstuff.model;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
+import java.util.Collection;
+/// Nodes have  children and parents, while vertices do only have neighbours
+public class Node extends Vertex {
+    private int color = 0;
+    private int parentId = -1;
+    private Collection<Integer> childIds = new ArrayList<>();
 
-public class Node {
-    private int id;
-    private int color;
-    private int distance;
-    private Node parent;
-    private ArrayList<Node> children;
-
-    public int getId() {
-        return id;
-    }
+    //region accessors
 
     public int getColor() {
         return color;
@@ -21,42 +20,83 @@ public class Node {
         this.color = color;
     }
 
-    public Node getParent() {
-        return parent;
+    public int getParentId() {
+        return parentId;
     }
 
-    public void setParent(Node parent) {
-        this.parent = parent;
-        parent.addChild(this);
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
     }
 
-    public int getDistance() {
-        return distance;
+    public Collection<Integer> getChildIds() {
+        return childIds;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setChildIds(Collection<Integer> childIds) {
+        this.childIds = childIds;
     }
 
-    public ArrayList<Node> getChildren() {
-        return children;
+    //endregion
+
+    //region constructors
+
+    public Node(int vertId) {
+        super(vertId);
     }
 
-    public void setChildren(ArrayList<Node> children) {
-        this.children = children;
+    public Node(int vertId, Collection<Integer> childIds){
+        super(vertId, childIds);
+        this.childIds.addAll(childIds);
     }
 
-    public void addChild(Node n){
-        this.children.add(n);
+    public Node(int nodeId, Collection<Integer> childIds, Integer parentId){
+        this(nodeId, childIds);
+
+        if( null!= parentId) {
+            addNeighbourId(parentId);
+            this.parentId = parentId;
+        }
     }
 
-    public Node(int id, int color, int distance, Node parent) {
-        this.id = id;
-        this.color = color;
-        this.distance = distance;
-        this.parent = parent;
-        this.children = new ArrayList<Node>();
-        if(null != parent)
-            parent.addChild(this);
+    public Node(EdgeList el, int nodeId){
+        super(el, nodeId);
+        this.childIds = findChildIds(nodeId, el, null);
+    }
+
+    public Node(EdgeList el, int nodeId, Integer parentId){
+        this(nodeId, findChildIds(nodeId, el, parentId), parentId);
+    }
+
+    //endregion
+
+    public static ArrayList<Integer> findChildIds(int nodeId, EdgeList el, Integer parentId){
+        ArrayList<Integer> childIds = Vertex.findNeighbourIds(el, nodeId);
+        if(null != parentId)
+            childIds.remove(parentId);
+        return childIds;
+    }
+
+    public void addChildId(int n){
+        if(!getNeighbourIds().contains(n))
+            this.addNeighbourId(n);
+        this.childIds.add(n);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj.getClass() == Node.class){
+            Node that = (Node)obj;
+            boolean childcomp = this.getChildIds().containsAll(that.getChildIds());
+            return this.getParentId() == that.getParentId() && this.getColor() == that.getColor() && this.getChildIds().containsAll(that.getChildIds()) && super.equals(obj);
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public  String toString(){
+        if(this.getParentId() == -1){
+            return String.format("%s", this.getVertId());
+        }
+        return String.format("%s --> %s", this.getParentId(), this.getVertId());
     }
 }

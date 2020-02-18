@@ -4,6 +4,9 @@ import com.graphstuff.model.Edge;
 import com.graphstuff.model.Graph;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DOTWriter {
     private File output;
@@ -11,22 +14,21 @@ public class DOTWriter {
 
     private DOTWriter(){};
 
-    public DOTWriter(File f){
+    public DOTWriter(File output){
         content = new StringBuilder();
-        output = f;
+        this.output = output;
     }
 
-    public DOTWriter(String path){
+    public DOTWriter(String outputPath){
         content = new StringBuilder();
-        output = new File(path);
+        output = new File(outputPath);
     }
 
-    public void toDOT(Graph g){
+    public String toDOT(Graph g){
         setup(g);
-        for (Edge e : g.getEdgeList()) {
-            addEdge(e);
-        }
+        g.getSearchableStructure().forEach(this::addEdge);
         finish();
+        return content.toString();
     }
 
     private void setup(Graph g){
@@ -41,5 +43,13 @@ public class DOTWriter {
 
     private void finish(){
         content.append("}\n");
+    }
+
+    private void write(){
+        try {
+            Files.write(Paths.get(output.getPath()), content.toString().getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

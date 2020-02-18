@@ -1,75 +1,116 @@
 package com.graphstuff.test.model;
 
+import com.graphstuff.model.EdgeList;
 import com.graphstuff.model.Node;
+import com.graphstuff.parser.EdgeListFileParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class NodeTest {
 
-    Node n;
+    Node n1;
     Node n2;
+    Node n3;
+
+    EdgeList el;
+    File f;
 
     @BeforeEach
-    void setup(){
-        n = new Node(1,1,0,null);
-        n2 = new Node(2,0,1,n);
-    }
+    void setUp() {
+        f = new File("src/test/resources/k3_3.txt");
+        el = new EdgeList(EdgeListFileParser.parseFile(f));
+        el = new EdgeList(f);
 
-    @Test
-    void getId() {
-        assertEquals(1, n.getId());
-        assertEquals(2, n2.getId());
+        n1 = new Node(el, 1);
+        n2 = new Node(el, 2, 1);
+        n2.setColor(1);
+        n3 = new Node(3);
     }
 
     @Test
     void getColor() {
-        assertEquals(1, n.getColor());
-        assertEquals(0, n2.getColor());
+        assertEquals(0, n1.getColor());
+        assertEquals(1, n2.getColor());
     }
 
     @Test
     void setColor() {
-        n.setColor(2);
-        assertEquals(n.getColor(), 2);
+        assertEquals(0, n1.getColor());
+        n1.setColor(1);
+        assertEquals(1, n1.getColor());
     }
 
     @Test
-    void getParent() {
-        assertNull(n.getParent());
-        assertEquals(n, n2.getParent());
+    void getParentId() {
+        assertEquals( -1, n1.getParentId());
+        assertEquals(1, n2.getParentId());
     }
 
     @Test
-    void setParent() {
-        n.setParent(n2);
-        assertEquals(n2, n.getParent());
+    void setParentId() {
+        n1.setParentId(3);
+        assertEquals(3, n1.getParentId());
     }
 
     @Test
-    void getDistance() {
-       assertEquals(n2.getDistance(), 1);
+    void getChildIds() {
+        ArrayList<Integer> childs = new ArrayList<>();
+        childs.add(4);
+        childs.add(5);
+        childs.add(6);
+        assertTrue(n1.getChildIds().containsAll(childs));
+        childs.add(2);
+        assertFalse(n1.getChildIds().containsAll(childs));
     }
 
     @Test
-    void setDistance() {
-        n.setDistance(2);
-        assertEquals(n.getDistance(), 2);
+    void setChildIds() {
+        ArrayList<Integer> childs = new ArrayList<>();
+        childs.add(4);
+        childs.add(5);
+        childs.add(6);
+        Node test = new Node(23);
+        test.setChildIds(childs);
+        assertTrue(test.getChildIds().containsAll(childs));
     }
 
     @Test
-    void getChildren() {
-        assertEquals(n2, n.getChildren().get(0));
+    void findChildIds() {
+        assertTrue(n1.getChildIds().containsAll(Node.findChildIds(1,el,null)));
     }
 
     @Test
-    void setChildren() {
-        Node n3 = new Node(3,4,5, n2);
-        n2.setChildren(new ArrayList<Node>(){{add(n3);}});
-        assertEquals(n3, n2.getChildren().get(0));
+    void addChildId() {
+        n1.addChildId(2);
+        ArrayList<Integer> childs = new ArrayList<>();
+        childs.add(2);
+        childs.add(4);
+        childs.add(5);
+        childs.add(6);
+        assertTrue(n1.getChildIds().containsAll(childs));
+    }
+
+    @Test
+    void testEquals() {
+        ArrayList<Integer> childs = new ArrayList<>();
+        childs.add(4);
+        childs.add(5);
+        childs.add(6);
+        Node test = new Node(2, childs,1 );
+        n2.setColor(0);
+        assertEquals(n2, test);
+        assertNotEquals(n1,test);
+        assertNotEquals(n1, new String("asdfksa"));
+    }
+
+    @Test
+    void testToString() {
+        assertTrue("1 --> 2".equals(n2.toString()));
+        assertTrue("1".equals(n1.toString()));
     }
 }

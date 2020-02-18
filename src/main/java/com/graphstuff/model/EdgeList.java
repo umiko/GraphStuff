@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class EdgeList implements ISearchable, Iterable<Edge> {
@@ -40,15 +41,11 @@ public class EdgeList implements ISearchable, Iterable<Edge> {
     }
 
     public int getVMax(){
-        int max = 0;
-        for (Edge e : edges
-             ) {
-            if(e.getV1() > max)
-                max = e.getV1();
-            if (e.getV2()>max)
-                max = e.getV2();
+        int vmax = 0;
+        for (Edge e : edges) {
+            vmax = Math.max(vmax, Math.max(e.getV1(), e.getV2()));
         }
-        return max;
+        return vmax;
     }
 
     public ArrayList<Edge> getEdgesByVertex(int v){
