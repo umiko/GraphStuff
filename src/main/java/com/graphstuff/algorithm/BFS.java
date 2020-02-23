@@ -2,10 +2,7 @@ package com.graphstuff.algorithm;
 
 import com.graphstuff.model.*;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 
 public class BFS {
@@ -16,6 +13,8 @@ public class BFS {
 
     private int rootNodeId;
     private int targetNodeId;
+    private final int WHITE = 0;
+    private final int BLACK = 1;
 
     public BFS(EdgeList el, int rootNodeId, int targetNodeId, boolean isStrict){
         this.isStrict = isStrict;
@@ -25,36 +24,36 @@ public class BFS {
     };
 
     public GraphSearchResult search(){
-        Deque<Integer> workload = new LinkedList<>();
-        Deque<Integer> parents = new LinkedList<>();
-        Node currentNode = null;
-        Integer previousParentId = -1;
-        int childcounter = 0;
-        boolean targetNodeReached = false;
-        workload.add(rootNodeId);
-        //work until there is no work left or the target node is found
-        while (workload.size() > 0 && !targetNodeReached){
-            //if there is no currentNode, it must be the first iteration, create a root node
-            if(null == (currentNode = nodeHashMap.get(workload.getFirst())) || workload.getFirst() != currentNode.getVertId())
-                nodeHashMap.put(workload.getFirst(),currentNode = new Node(el, workload.getFirst(), previousParentId == -1 ?null:previousParentId));
-            //if the node has not been traversed yet, do that
-            if(currentNode.getColor()==0){
-                //do work
-                if (currentNode.getVertId()==targetNodeId)
-                    targetNodeReached = true;
-                workload.addAll(currentNode.getChildIds());
-                currentNode.setColor(1);
-                currentNode.setParentId(previousParentId);
+        Queue<Node> q = new LinkedList<>();
+        Node u,v;
+        boolean isTargetFound = false;
+
+        nodeHashMap.put(rootNodeId, new Node(el,rootNodeId, null));
+        q.add(nodeHashMap.get(rootNodeId));
+        q.peek().setDistanceToRoot(0);
+
+        while(!q.isEmpty()){
+            u = q.remove();
+            for(int vId : u.getNeighbourIds()){
+                if((v = nodeHashMap.get(vId)) == null){
+                    nodeHashMap.put(vId, v = new Node(el,vId, u.getVertId()));
+                }
+                if(v.getColor() == WHITE){
+                    v.setColor(BLACK);
+                    v.setParentId(u.getVertId());
+                    v.setDistanceToRoot(u.getDistanceToRoot()+1);
+                    q.add(v);
+
+                    if(v.getVertId() == targetNodeId){
+                        isTargetFound = true;
+                    }
+                }
             }
-            //remove the last worked on nodeid from the queue
-            if(childcounter==0)
-                previousParentId = parents.removeFirst();
-            else
-                workload.removeFirst();
-            childcounter--;
+            u.setColor(BLACK);
         }
 
-        return new GraphSearchResult(nodeHashMap, targetNodeId, rootNodeId, targetNodeReached);
+        return new GraphSearchResult(nodeHashMap, targetNodeId, rootNodeId, isTargetFound);
+
     };
 
 

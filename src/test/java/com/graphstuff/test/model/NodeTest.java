@@ -113,4 +113,15 @@ class NodeTest {
         assertTrue("1 --> 2".equals(n2.toString()));
         assertTrue("1".equals(n1.toString()));
     }
+
+    @Test
+    void getDistanceToRoot() {
+        assertEquals(-1, n1.getDistanceToRoot());
+    }
+
+    @Test
+    void setDistanceToRoot() {
+        n1.setDistanceToRoot(23);
+        assertEquals(23, n1.getDistanceToRoot());
+    }
 }

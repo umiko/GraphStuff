@@ -2,7 +2,7 @@ package com.graphstuff.model;
 
 public class Edge {
 
-    private int v1,v2;
+    private int v1,v2, weight = 0;
     private boolean directed = false;
 
     public int getV1() {
@@ -11,6 +11,20 @@ public class Edge {
 
     public int getV2() {
         return v2;
+    }
+
+    public boolean isDirected() {
+        return directed;
+    }
+
+    public void setDirected(boolean directed) {
+        this.directed = directed;
+    }
+
+    public int getWeight() { return weight;}
+
+    public void setWeight(int weight){
+        this.weight = weight;
     }
 
     private Edge(){}
@@ -47,6 +61,6 @@ public class Edge {
     public String toString() {
         if(!directed)
             return v1 + " -- "+v2;
-        return v1 + " -> " + v2;
+        return v1 + " --> " + v2;
     }
 }

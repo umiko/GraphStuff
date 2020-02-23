@@ -2,10 +2,7 @@ package com.graphstuff.test.model;
 
 import com.graphstuff.model.Edge;
 import jdk.jfr.Name;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EdgeTest {
     private Edge e;
 
-    @BeforeAll
+    @BeforeEach
     @Test
     @DisplayName("Constructor Test")
     void EdgeConstructorTest(){
@@ -35,6 +32,8 @@ class EdgeTest {
         assertEquals(e, new Edge(1, 2));
         assertNotEquals(e, "sdjhask");
         assertNotEquals(e, new Edge(1,3));
+        e.setDirected(true);
+        assertEquals(e,e);
     }
 
     @Test
@@ -48,5 +47,21 @@ class EdgeTest {
     @DisplayName("Test toString")
     void toStringTest(){
         assertEquals(e.toString(), e.getV1()+" -- "+e.getV2());
+        e.setDirected(true);
+        assertEquals(String.format("%s --> %s", e.getV1(), e.getV2()), e.toString());
+    }
+
+    @Test
+    void isDirected() {
+        assertFalse(e.isDirected());
+        e.setDirected(true);
+        assertTrue(e.isDirected());
+    }
+
+    @Test
+    void weight() {
+        assertEquals(0, e.getWeight());
+        e.setWeight(12);
+        assertEquals(12, e.getWeight());
     }
 }

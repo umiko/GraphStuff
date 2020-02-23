@@ -8,6 +8,10 @@ import java.util.Collection;
 public class Node extends Vertex {
     private int color = 0;
     private int parentId = -1;
+    private int distanceToRoot = -1;
+    private int timeDiscovered = -1;
+    private int timeFinished = -1;
+
     private Collection<Integer> childIds = new ArrayList<>();
 
     //region accessors
@@ -34,6 +38,30 @@ public class Node extends Vertex {
 
     public void setChildIds(Collection<Integer> childIds) {
         this.childIds = childIds;
+    }
+
+    public int getDistanceToRoot() {
+        return distanceToRoot;
+    }
+
+    public void setDistanceToRoot(int distanceToRoot) {
+        this.distanceToRoot = distanceToRoot;
+    }
+
+    public int getTimeDiscovered() {
+        return timeDiscovered;
+    }
+
+    public void setTimeDiscovered(int timeDiscovered) {
+        this.timeDiscovered = timeDiscovered;
+    }
+
+    public int getTimeFinished() {
+        return timeFinished;
+    }
+
+    public void setTimeFinished(int timeFinished) {
+        this.timeFinished = timeFinished;
     }
 
     //endregion
