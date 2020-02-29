@@ -37,6 +37,15 @@ public class Edge {
         this.v2 = v2;
     }
 
+    public Edge(int v1, int v2, int weight){
+        if(v1 < 1 || v2 < 1){
+            throw new IllegalArgumentException();
+        }
+        this.v1 = v1;
+        this.v2 = v2;
+        this.weight = weight;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj.getClass()!= Edge.class)
@@ -61,6 +70,6 @@ public class Edge {
     public String toString() {
         if(!directed)
             return v1 + " -- "+v2;
-        return v1 + " --> " + v2;
+        return v1 + " -> " + v2;
     }
 }

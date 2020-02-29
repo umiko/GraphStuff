@@ -14,12 +14,19 @@ public final class EdgeListFileParser {
         ArrayList<String> edgeStrings = readFile(f);
         edgeStrings.remove(0);
         ArrayList<Edge> edges = new ArrayList<>();
+        Edge e;
         for (String s : edgeStrings){
             String[] vertices = s.split(" ");
-            if(vertices.length != 2){
-                throw new IllegalArgumentException("Edge does not have 2 Vertices");
+            if(vertices.length != 2 && vertices.length != 3){
+                throw new IllegalArgumentException("Illegal edge input");
             }
-            edges.add(new Edge(Integer.parseInt(vertices[0]), Integer.parseInt(vertices[1])));
+            else {
+                e = new Edge(Integer.parseInt(vertices[0]), Integer.parseInt(vertices[vertices.length == 2 ? 1 : 2]));
+                if (vertices.length == 3){
+                    e.setWeight(Integer.parseInt(vertices[1]));
+                }
+                edges.add(e);
+            }
         }
         return edges;
     }

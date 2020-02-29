@@ -1,7 +1,5 @@
 package com.graphstuff.model;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collection;
 /// Nodes have  children and parents, while vertices do only have neighbours

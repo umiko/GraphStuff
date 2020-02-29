@@ -1,7 +1,8 @@
 package com.graphstuff.dot;
 
+import com.graphstuff.model.BasicGraphModel;
 import com.graphstuff.model.Edge;
-import com.graphstuff.model.Graph;
+import com.graphstuff.model.IGraphRepresentation;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,14 +25,14 @@ public class DOTWriter {
         output = new File(outputPath);
     }
 
-    public String toDOT(Graph g){
+    public String toDOT(BasicGraphModel g){
         setup(g);
-        g.getSearchableStructure().forEach(this::addEdge);
+        g.toEdgeList().forEach(this::addEdge);
         finish();
         return content.toString();
     }
 
-    private void setup(Graph g){
+    private void setup(BasicGraphModel g){
         if(g.isStrict())
             content.append("strict ");
         content.append("graph {\n");

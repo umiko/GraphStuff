@@ -7,8 +7,6 @@ public class Vertex {
     private int vertId;
     private Collection<Integer> neighbourIds = new ArrayList<>();
 
-
-
     //region accessors
 
     public int getVertId() {

@@ -2,7 +2,6 @@ package com.graphstuff.model;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class AdjacencyList extends AdvancedGraphModel{
 

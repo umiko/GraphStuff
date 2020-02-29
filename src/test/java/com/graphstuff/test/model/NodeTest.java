@@ -33,32 +33,36 @@ class NodeTest {
     }
 
     @Test
-    void getColor() {
-        assertEquals(0, n1.getColor());
-        assertEquals(1, n2.getColor());
-    }
-
-    @Test
-    void setColor() {
+    void color() {
         assertEquals(0, n1.getColor());
         n1.setColor(1);
         assertEquals(1, n1.getColor());
     }
 
     @Test
-    void getParentId() {
+    void parentId() {
         assertEquals( -1, n1.getParentId());
         assertEquals(1, n2.getParentId());
-    }
-
-    @Test
-    void setParentId() {
         n1.setParentId(3);
         assertEquals(3, n1.getParentId());
     }
 
     @Test
-    void getChildIds() {
+    void timeDiscovered() {
+        assertEquals( -1, n1.getTimeDiscovered());
+        n1.setTimeDiscovered(3);
+        assertEquals(3, n1.getTimeDiscovered());
+    }
+
+    @Test
+    void getTimeFinished() {
+        assertEquals( -1, n1.getTimeFinished());
+        n1.setTimeFinished(3);
+        assertEquals(3, n1.getTimeFinished());
+    }
+
+    @Test
+    void childIds() {
         ArrayList<Integer> childs = new ArrayList<>();
         childs.add(4);
         childs.add(5);
@@ -66,14 +70,6 @@ class NodeTest {
         assertTrue(n1.getChildIds().containsAll(childs));
         childs.add(2);
         assertFalse(n1.getChildIds().containsAll(childs));
-    }
-
-    @Test
-    void setChildIds() {
-        ArrayList<Integer> childs = new ArrayList<>();
-        childs.add(4);
-        childs.add(5);
-        childs.add(6);
         Node test = new Node(23);
         test.setChildIds(childs);
         assertTrue(test.getChildIds().containsAll(childs));
@@ -115,12 +111,8 @@ class NodeTest {
     }
 
     @Test
-    void getDistanceToRoot() {
+    void distanceToRoot() {
         assertEquals(-1, n1.getDistanceToRoot());
-    }
-
-    @Test
-    void setDistanceToRoot() {
         n1.setDistanceToRoot(23);
         assertEquals(23, n1.getDistanceToRoot());
     }

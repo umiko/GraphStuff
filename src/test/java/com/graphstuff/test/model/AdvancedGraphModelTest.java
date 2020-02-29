@@ -46,6 +46,6 @@ class AdvancedGraphModelTest {
 
     @Test
     void getSearchableStructure() {
-        assertEquals(im.getSearchableStructure(), new EdgeList(f));
+        assertEquals(im.toEdgeList(), new EdgeList(f));
     }
 }

@@ -1,6 +1,5 @@
 package com.graphstuff.model;
 
-import com.graphstuff.algorithm.ISearchable;
 import com.graphstuff.parser.EdgeListFileParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,10 +7,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class EdgeList implements ISearchable, Iterable<Edge> {
+public class EdgeList extends BasicGraphModel implements Iterable<Edge> {
     private ArrayList<Edge> edges;
 
     private EdgeList(){}
@@ -71,7 +69,7 @@ public class EdgeList implements ISearchable, Iterable<Edge> {
     }
 
     @Override
-    public EdgeList getSearchableStructure() {
+    public EdgeList toEdgeList() {
         return this;
     }
 

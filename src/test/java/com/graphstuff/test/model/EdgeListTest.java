@@ -70,7 +70,7 @@ class EdgeListTest {
 
     @Test
     void getSearchableStructure() {
-        assertEquals(el.getSearchableStructure(), el);
+        assertEquals(el.toEdgeList(), el);
     }
 
     @Test

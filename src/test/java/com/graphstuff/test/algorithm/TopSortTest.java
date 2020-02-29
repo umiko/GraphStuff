@@ -25,7 +25,7 @@ class TopSortTest {
     void setUp() {
         f = new File("src/test/resources/k3_3.txt");
         el = new EdgeList(EdgeListFileParser.parseFile(f));
-        topSort = new TopSort(el, 1,3,false);
+        topSort = new TopSort(el, 1);
     }
 
 

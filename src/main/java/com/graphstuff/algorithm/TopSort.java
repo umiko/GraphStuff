@@ -14,18 +14,14 @@ public class TopSort implements Comparator<Node> {
     private ArrayList<Node> resultList = new ArrayList<>();
 
     private int rootNodeId;
-    private int targetNodeId;
     private int time = 0;
-    private boolean isStrict;
     private final int WHITE = 0;
     private final int BLACK = 1;
 
 
-    public TopSort(EdgeList el, int rootNodeId, int targetNodeId, boolean isStrict){
+    public TopSort(EdgeList el, int rootNodeId){
         this.el = el;
         this.rootNodeId = rootNodeId;
-        this.targetNodeId = targetNodeId;
-        this.isStrict = isStrict;
     }
 
     public ArrayList<Node> sort(){

@@ -15,32 +15,16 @@ public class GraphSearchResult {
         return mappedNodes;
     }
 
-    public void setMappedNodes(HashMap<Integer, Node> mappedNodes) {
-        this.mappedNodes = mappedNodes;
-    }
-
     public int getTargetNode() {
         return targetNode;
-    }
-
-    public void setTargetNode(int targetNode) {
-        this.targetNode = targetNode;
     }
 
     public int getRootNode() {
         return rootNode;
     }
 
-    public void setRootNode(int rootNode) {
-        this.rootNode = rootNode;
-    }
-
     public boolean isTargetFound() {
         return isTargetFound;
-    }
-
-    public void setTargetFound(boolean targetFound) {
-        isTargetFound = targetFound;
     }
 
     //endregion

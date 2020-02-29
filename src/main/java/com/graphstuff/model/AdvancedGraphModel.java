@@ -1,10 +1,6 @@
 package com.graphstuff.model;
 
-import com.graphstuff.algorithm.ISearchable;
-
-import java.util.ListIterator;
-
-public abstract class AdvancedGraphModel implements ISearchable{
+public abstract class AdvancedGraphModel extends GraphInformation implements IGraphRepresentation{
     EdgeList el;
 
     public void addEdge(Edge e){ el.addEdge(e);}
@@ -25,8 +21,7 @@ public abstract class AdvancedGraphModel implements ISearchable{
         return new AdjacencyList(el);
     }
 
-    @Override
-    public EdgeList getSearchableStructure() {
+    public EdgeList toEdgeList() {
         return el;
     }
 

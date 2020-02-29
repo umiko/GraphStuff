@@ -48,7 +48,7 @@ class EdgeTest {
     void toStringTest(){
         assertEquals(e.toString(), e.getV1()+" -- "+e.getV2());
         e.setDirected(true);
-        assertEquals(String.format("%s --> %s", e.getV1(), e.getV2()), e.toString());
+        assertEquals(String.format("%s -> %s", e.getV1(), e.getV2()), e.toString());
     }
 
     @Test

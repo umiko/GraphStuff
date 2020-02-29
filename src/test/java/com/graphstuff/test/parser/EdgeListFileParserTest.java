@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("File Parser Tests")
 class EdgeListFileParserTest {
-    static File[] files =  new File[8];
+    static File[] files =  new File[9];
 
     @BeforeAll
     static void initFiles(){
@@ -32,6 +32,7 @@ class EdgeListFileParserTest {
         files[5] = new File("src/test/resources/petersen.txt");
         files[6] = new File("src/test/resources/empty.txt");
         files[7] = new File("src/test/resources/brokenEL.txt");
+        files[8] = new File("src/test/resources/bellmannford.txt");
     }
 
     @Test
