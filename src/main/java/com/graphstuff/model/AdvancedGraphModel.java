@@ -1,6 +1,6 @@
 package com.graphstuff.model;
 
-public abstract class AdvancedGraphModel extends GraphInformation implements IGraphRepresentation{
+public abstract class AdvancedGraphModel implements IGraphRepresentation{
     EdgeList el;
 
     public void addEdge(Edge e){ el.addEdge(e);}
@@ -23,6 +23,36 @@ public abstract class AdvancedGraphModel extends GraphInformation implements IGr
 
     public EdgeList toEdgeList() {
         return el;
+    }
+
+    @Override
+    public boolean isStrict() {
+        return el.isStrict();
+    }
+
+    @Override
+    public void setStrict(boolean strict) {
+        el.setStrict(strict);
+    }
+
+    @Override
+    public boolean isDirected() {
+        return el.isDirected();
+    }
+
+    @Override
+    public void setDirected(boolean directed) {
+        el.setDirected(directed);
+    }
+
+    @Override
+    public boolean isWeighted() {
+        return el.isWeighted();
+    }
+
+    @Override
+    public void setWeighted(boolean weighted) {
+        el.setWeighted(weighted);
     }
 
     @Override

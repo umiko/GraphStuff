@@ -9,8 +9,41 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class EdgeList extends BasicGraphModel implements Iterable<Edge> {
+public class EdgeList implements IGraphRepresentation, Iterable<Edge> {
+    private boolean isStrict = false;
+    private boolean isDirected = false;
+    private boolean isWeighted = false;
     private ArrayList<Edge> edges;
+
+    //region accessors
+
+    public boolean isStrict() {
+        return isStrict;
+    }
+
+    public void setStrict(boolean strict) {
+        isStrict = strict;
+    }
+
+    public boolean isDirected() {
+        return isDirected;
+    }
+
+    public void setDirected(boolean directed) {
+        isDirected = directed;
+    }
+
+    public boolean isWeighted() {
+        return isWeighted;
+    }
+
+    public void setWeighted(boolean weighted) {
+        isWeighted = weighted;
+    }
+
+    //endregion
+
+    //region constructors
 
     private EdgeList(){}
 
@@ -21,6 +54,8 @@ public class EdgeList extends BasicGraphModel implements Iterable<Edge> {
     public EdgeList(File f){
         this.edges = EdgeListFileParser.parseFile(f);
     }
+
+    //endregion
 
     public void addEdge(Edge e){
         edges.add(e);

@@ -8,4 +8,16 @@ public interface IGraphRepresentation {
     public AdjacencyMatrix toAdjacencyMatrix();
 
     public AdjacencyList toAdjacencyList();
+
+    public boolean isStrict();
+
+    public void setStrict(boolean strict);
+
+    public boolean isDirected();
+
+    public void setDirected(boolean directed);
+
+    public boolean isWeighted();
+
+    public void setWeighted(boolean weighted);
 };

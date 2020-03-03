@@ -1,9 +1,11 @@
 package com.graphstuff.algorithm;
 
+import com.graphstuff.model.DFSTree;
 import com.graphstuff.model.EdgeList;
 import com.graphstuff.model.GraphSearchResult;
 import com.graphstuff.model.Node;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -30,13 +32,21 @@ public class DFS {
     };
 
     public GraphSearchResult search(){
-        nodeHashMap.put(rootNodeId, new Node(el,rootNodeId, null));
-        visit(nodeHashMap.get(rootNodeId));
-
-        return new GraphSearchResult(nodeHashMap, targetNodeId, rootNodeId, isTargetFound);
+        return new GraphSearchResult(generateForest().get(rootNodeId).getTree(), targetNodeId, rootNodeId, isTargetFound);
     }
 
-    private void visit(Node u){
+    public ArrayList<DFSTree> generateForest(){
+        ArrayList<DFSTree> forest = new ArrayList<>();
+        for (int i = 0; i < el.getVMax(); i++){
+            nodeHashMap.put(i, new Node(el,i, null));
+            forest.add(i, visit(nodeHashMap.get(i)));
+            nodeHashMap = new HashMap<>();
+            time = 0;
+        }
+        return forest;
+    }
+
+    public DFSTree visit(Node u){
         time++;
         u.setTimeDiscovered(time);
         u.setColor(BLACK);
@@ -55,5 +65,6 @@ public class DFS {
         }
         time++;
         u.setTimeFinished(time);
+        return new DFSTree(nodeHashMap, u.getVertId());
     }
 }

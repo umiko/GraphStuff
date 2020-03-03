@@ -1,6 +1,5 @@
 package com.graphstuff.dot;
 
-import com.graphstuff.model.BasicGraphModel;
 import com.graphstuff.model.Edge;
 import com.graphstuff.model.IGraphRepresentation;
 
@@ -25,14 +24,14 @@ public class DOTWriter {
         output = new File(outputPath);
     }
 
-    public String toDOT(BasicGraphModel g){
+    public String toDOT(IGraphRepresentation g){
         setup(g);
         g.toEdgeList().forEach(this::addEdge);
         finish();
         return content.toString();
     }
 
-    private void setup(BasicGraphModel g){
+    private void setup(IGraphRepresentation g){
         if(g.isStrict())
             content.append("strict ");
         content.append("graph {\n");

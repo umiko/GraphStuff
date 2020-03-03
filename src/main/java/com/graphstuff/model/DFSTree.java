@@ -12,6 +12,21 @@ public class DFSTree {
     private final int WHITE = 0;
     private final int BLACK = 1;
 
+    public HashMap<Integer, Node> getTree() {
+        return tree;
+    }
+
+    public void setTree(HashMap<Integer, Node> tree) {
+        this.tree = tree;
+    }
+
+    public int getRootId() {
+        return rootId;
+    }
+
+    public void setRootId(int rootId) {
+        this.rootId = rootId;
+    }
 
     public DFSTree(HashMap<Integer, Node> tree, int rootId){
         this.tree = tree;
