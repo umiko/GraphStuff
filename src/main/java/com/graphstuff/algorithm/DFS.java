@@ -37,11 +37,13 @@ public class DFS {
 
     public ArrayList<DFSTree> generateForest(){
         ArrayList<DFSTree> forest = new ArrayList<>();
-        for (int i = 0; i < el.getVMax(); i++){
-            nodeHashMap.put(i, new Node(el,i, null));
-            forest.add(i, visit(nodeHashMap.get(i)));
-            nodeHashMap = new HashMap<>();
-            time = 0;
+        for (int i = 1; i < el.getVMax(); i++){
+            if(nodeHashMap.get(i) == null) {
+                nodeHashMap.put(i, new Node(el, i, null));
+            }
+            if(nodeHashMap.get(i).getColor()==WHITE){
+                forest.add(visit(nodeHashMap.get(i)));
+            }
         }
         return forest;
     }
