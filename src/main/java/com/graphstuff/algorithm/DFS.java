@@ -32,7 +32,7 @@ public class DFS {
     };
 
     public GraphSearchResult search(){
-        return new GraphSearchResult(generateForest().get(rootNodeId).getTree(), targetNodeId, rootNodeId, isTargetFound);
+        return new GraphSearchResult(generateForest(), targetNodeId, rootNodeId, isTargetFound);
     }
 
     public ArrayList<DFSTree> generateForest(){

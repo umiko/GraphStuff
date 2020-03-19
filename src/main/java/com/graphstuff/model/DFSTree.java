@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class DFSTree {
-    HashMap<Integer, Node> tree;
-    int rootId = 0;
+    private HashMap<Integer, Node> tree;
+    private int rootId = 0;
 
     private final int WHITE = 0;
     private final int BLACK = 1;
@@ -33,7 +33,7 @@ public class DFSTree {
         this.rootId = rootId;
     }
 
-    public EdgeList toTree(){
+    public EdgeList toEdgeList(){
         Node currentNode;
         Queue<Integer> q = new LinkedList<>();
         ArrayList<Edge> resultTreeEdges = new ArrayList<>();
@@ -56,5 +56,9 @@ public class DFSTree {
             currentNode.setColor(WHITE);
         }
         return new EdgeList(resultTreeEdges);
+    }
+
+    public boolean containsNode(int nodeId){
+        return !(this.getTree().get(nodeId) == null);
     }
 }

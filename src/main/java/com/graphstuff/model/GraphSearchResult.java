@@ -1,5 +1,6 @@
 package com.graphstuff.model;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,6 +35,18 @@ public class GraphSearchResult {
         this.targetNode = targetNode;
         this.rootNode = rootNode;
         this.isTargetFound = isTargetFound;
+    }
+
+    public GraphSearchResult(ArrayList<DFSTree> forest, int targetNode, int rootNode, boolean isTargetFound){
+        if((this.isTargetFound = isTargetFound)) {
+            for (DFSTree t : forest) {
+                if (t.containsNode(rootNode) && t.containsNode(targetNode)) {
+                    this.mappedNodes = t.getTree();
+                }
+            }
+        }
+        this.rootNode = rootNode;
+        this.targetNode = targetNode;
     }
 
     public void printResult(){

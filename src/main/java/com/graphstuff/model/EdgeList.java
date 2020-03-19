@@ -1,7 +1,7 @@
 package com.graphstuff.model;
 
 import com.graphstuff.parser.EdgeListFileParser;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -108,7 +108,6 @@ public class EdgeList implements IGraphRepresentation, Iterable<Edge> {
         return this;
     }
 
-    @NotNull
     @Override
     public Iterator<Edge> iterator() {
         return edges.iterator();
